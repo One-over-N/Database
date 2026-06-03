@@ -7,11 +7,20 @@ DELIMITER //
 
 CREATE PROCEDURE user_payment_punish_unpaid_members()
 BEGIN
-		-- 데이터 수정하므로 트랜잭션 적용
+	
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+	-- 데이터 수정하므로 트랜잭션 적용
     START TRANSACTION;
-    
-		-- 대상이 되는 미납 ID와 회원 ID, 파티명을 임시 테이블에 저장
-    CREATE TEMPORARY TABLE IF NOT EXISTS temp_unpaid_targets AS
+
+
+	-- 대상이 되는 미납 ID와 회원 ID, 파티명을 임시 테이블에 저장
+    DROP TEMPORARY TABLE IF EXISTS temp_unpaid_targets;
+    CREATE TEMPORARY TABLE temp_unpaid_targets AS
     SELECT
         mp.member_payment_id,
         mp.member_id,
