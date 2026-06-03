@@ -1,6 +1,6 @@
 -- 미납시 -10
 
--- 동일 이름 트리거 있을 시 제거
+-- 동일 이름 프로시저 있을 시 제거
 DROP PROCEDURE IF EXISTS user_payment_punish_unpaid_members;
 
 DELIMITER //
