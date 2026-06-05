@@ -78,6 +78,7 @@ CREATE TABLE member_payment (
     payment_amount INT NOT NULL,
     payment_status ENUM('PAID', 'UNPAID') DEFAULT 'UNPAID',
     payment_date DATETIME,
+    penalty_applied BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (settlement_id) REFERENCES party_settlement(settlement_id),
     FOREIGN KEY (member_id) REFERENCES member(member_id),
     UNIQUE (settlement_id, member_id)
