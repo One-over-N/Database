@@ -32,10 +32,10 @@ INSERT INTO party (
     ott_account_id, ott_account_pw, bank_account, party_status
 )
 VALUES
-(1,1,'넷플릭스 같이 봐요','netflix01','pw1111','국민 123-456','recruiting'),
-(2,2,'디즈니 플러스 파티','disney01','pw2222','신한 222-333','recruiting'),
-(3,3,'웨이브 드라마 파티','wavve01','pw3333','우리 333-444','closed'),
-(4,4,'티빙 예능 파티','tving01','pw4444','하나 444-555','recruiting');
+(1,1,'넷플릭스 같이 봐요','netflix01','pw1111','국민 123-456','RECRUITING'),
+(2,2,'디즈니 플러스 파티','disney01','pw2222','신한 222-333','RECRUITING'),
+(3,3,'웨이브 드라마 파티','wavve01','pw3333','우리 333-444','CLOSED'),
+(4,4,'티빙 예능 파티','tving01','pw4444','하나 444-555','RECRUITING');
 
 INSERT INTO party_member (party_id, member_id)
 VALUES
@@ -50,28 +50,28 @@ VALUES
 
 INSERT INTO join_request (party_id, member_id, request_status)
 VALUES
-(1,3,'pending'),
-(1,4,'approved'),
-(2,5,'pending'),
-(2,6,'rejected'),
-(4,1,'pending');
+(1,3,'PENDING'),
+(1,4,'APPROVED'),
+(2,5,'PENDING'),
+(2,6,'REJECTED'),
+(4,1,'PENDING');
 
 INSERT INTO party_settlement (party_id, settlement_month, total_amount, settlement_status)
 VALUES
-(1, '2026-05', 17000, 'pending'),
-(2, '2026-05', 9900, 'completed'),
-(3, '2026-05', 13900, 'pending'),
-(4, '2026-05', 13500, 'pending');
+(1, '2026-05', 17000, 'PENDING'),
+(2, '2026-05', 9900, 'COMPLETED'),
+(3, '2026-05', 13900, 'PENDING'),
+(4, '2026-05', 13500, 'PENDING');
 
 INSERT INTO member_payment (
     settlement_id, member_id, payment_amount, payment_status, payment_date
 )
 VALUES
-(1, 1, 4250, 'paid', '2026-05-10 10:00:00'),
-(1, 2, 4250, 'paid', '2026-05-10 10:30:00'),
-(1, 3, 4250, 'unpaid', NULL),
-(2, 2, 4950, 'paid', '2026-05-05 09:00:00'),
-(2, 3, 4950, 'paid', '2026-05-05 09:30:00');
+(1, 1, 4250, 'PAID', '2026-05-10 10:00:00'),
+(1, 2, 4250, 'PAID', '2026-05-10 10:30:00'),
+(1, 3, 4250, 'UNPAID', NULL),
+(2, 2, 4950, 'PAID', '2026-05-05 09:00:00'),
+(2, 3, 4950, 'PAID', '2026-05-05 09:30:00');
 
 INSERT INTO reliability_history (
     member_id, before_score, change_score, after_score, reason
@@ -88,8 +88,8 @@ INSERT INTO notification (
     member_id, notification_type, message, is_read
 )
 VALUES
-(1, 'payment_request', '2026년 5월 정산 요청이 도착했습니다.', FALSE),
-(2, 'join_request', '새로운 파티 가입 신청이 있습니다.', FALSE),
-(3, 'join_approved', '파티 가입 신청이 승인되었습니다.', TRUE),
-(4, 'payment_request', '미납된 정산 내역이 있습니다.', FALSE),
-(5, 'join_request', '가입 신청이 접수되었습니다.', TRUE);
+(1, 'PAYMENT_REQUEST', '2026년 5월 정산 요청이 도착했습니다.', FALSE),
+(2, 'JOIN_REQUEST', '새로운 파티 가입 신청이 있습니다.', FALSE),
+(3, 'JOIN_APPROVED', '파티 가입 신청이 승인되었습니다.', TRUE),
+(4, 'PAYMENT_REQUEST', '미납된 정산 내역이 있습니다.', FALSE),
+(5, 'JOIN_REQUEST', '가입 신청이 접수되었습니다.', TRUE);
