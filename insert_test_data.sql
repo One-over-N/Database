@@ -11,12 +11,12 @@ VALUES
 
 INSERT INTO ott (service_name, image_url)
 VALUES
-('Netflix', 'netflix.png'),
-('Disney+', 'disney.png'),
-('Wavve', 'wavve.png'),
-('Tving', 'tving.png'),
-('Watcha', 'watcha.png'),
-('Coupang Play', 'coupang.png');
+('Netflix', '/images/netflix.webp'),
+('Disney+', '/images/disney_plus.webp'),
+('Wavve', '/images/wavve.webp'),
+('Tving', '/images/tving.webp'),
+('Watcha', '/images/watcha.webp'),
+('Coupang Play', '/images/coupang_play.webp');
 
 INSERT INTO ott_plan (ott_service_id, plan_name, monthly_price, max_members)
 VALUES
