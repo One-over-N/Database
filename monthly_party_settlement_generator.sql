@@ -12,17 +12,17 @@ BEGIN
         p.party_id,
         DATE_FORMAT(NOW(), '%Y-%m') AS settlement_month, 
         op.monthly_price AS total_amount,
-        'pending' AS settlement_status
+        'PENDING' AS settlement_status
     FROM party p
     JOIN ott_plan op ON p.ott_plan_id = op.ott_plan_id
-    WHERE p.party_status IN ('recruiting', 'closed')
+    WHERE p.party_status IN ('RECRUITING', 'CLOSED')
 
      -- 짧은 달(28, 29, 30일) 결제일 누락 방지 예외 처리 조건 추가
       AND (
           DAY(p.created_at) = DAY(NOW()) -- 일반적인 경우: 생성일과 오늘 일자가 같을 때
           OR (
               LAST_DAY(NOW()) = DATE(NOW()) -- 혹은 오늘이 이번 달의 진짜 마지막 날이고,
-              AND DAY(p.created_at) > DAY(NOW()) -- 파티 생성일이 그 마지막 날보다 큰 숫주일 때 (ex. 2월 28일에 29, 30, 31일 팀들 구제)
+              AND DAY(p.created_at) > DAY(NOW()) -- 파티 생성일이 그 마지막 날보다 큰 숫자일 때 (ex. 2월 28일에 29, 30, 31일 팀들 구제)
           )
       )
     
