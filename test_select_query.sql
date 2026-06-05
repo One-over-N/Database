@@ -31,7 +31,7 @@ JOIN ott_plan op ON p.ott_plan_id = op.ott_plan_id
 JOIN ott o ON op.ott_service_id = o.ott_service_id
 JOIN member m ON p.member_id = m.member_id
 LEFT JOIN party_member pm ON p.party_id = pm.party_id
-WHERE p.party_status = 'recruiting'
+WHERE p.party_status = 'RECRUITING'
 GROUP BY 
     p.party_id, p.party_name, o.service_name, op.plan_name,
     op.monthly_price, op.max_members, m.nickname, m.reliability_score;
@@ -73,7 +73,7 @@ FROM member_payment mp
 JOIN member m ON mp.member_id = m.member_id
 JOIN party_settlement ps ON mp.settlement_id = ps.settlement_id
 JOIN party p ON ps.party_id = p.party_id
-WHERE mp.payment_status = 'unpaid';
+WHERE mp.payment_status = 'UNPAID';
 
 -- 7. 신뢰도 변동 이력 조회
 SELECT
