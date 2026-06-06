@@ -29,7 +29,7 @@ SELECT
 FROM party p
 JOIN ott_plan op ON p.ott_plan_id = op.ott_plan_id
 JOIN ott o ON op.ott_service_id = o.ott_service_id
-JOIN member m ON p.member_id = m.member_id
+JOIN member m ON p.leader_id = m.member_id
 LEFT JOIN party_member pm ON p.party_id = pm.party_id
 WHERE p.party_status = 'RECRUITING'
 GROUP BY 
@@ -91,7 +91,8 @@ ORDER BY rh.created_at DESC;
 SELECT
     m.nickname,
     n.notification_type,
-    n.message,
+    n.content,
+    n.target_url,
     n.is_read,
     n.created_at
 FROM notification n
