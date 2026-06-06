@@ -59,7 +59,7 @@ SELECT
     mp.payment_date
 FROM member_payment mp
 JOIN member m ON mp.member_id = m.member_id
-JOIN party_settlement ps ON mp.settlement_id = ps.settlement_id
+JOIN party_settlement ps ON mp.party_settlement_id = ps.party_settlement_id
 JOIN party p ON ps.party_id = p.party_id
 ORDER BY ps.settlement_month, m.member_id;
 
@@ -71,7 +71,7 @@ SELECT
     mp.payment_status
 FROM member_payment mp
 JOIN member m ON mp.member_id = m.member_id
-JOIN party_settlement ps ON mp.settlement_id = ps.settlement_id
+JOIN party_settlement ps ON mp.party_settlement_id = ps.party_settlement_id
 JOIN party p ON ps.party_id = p.party_id
 WHERE mp.payment_status = 'UNPAID';
 
