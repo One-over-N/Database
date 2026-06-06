@@ -120,5 +120,5 @@ CREATE TABLE notification (
     is_read BOOLEAN DEFAULT FALSE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES member(member_id)
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE
 );
