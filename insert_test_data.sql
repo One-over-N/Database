@@ -11,12 +11,12 @@ VALUES
 
 INSERT INTO ott (service_name, image_url)
 VALUES
-('Netflix', 'netflix.png'),
-('Disney+', 'disney.png'),
-('Wavve', 'wavve.png'),
-('Tving', 'tving.png'),
-('Watcha', 'watcha.png'),
-('Coupang Play', 'coupang.png');
+('Netflix', '/images/netflix.webp'),
+('Disney+', '/images/disney_plus.webp'),
+('Wavve', '/images/wave.webp'),
+('Tving', '/images/tving.webp'),
+('Watcha', '/images/watcha.webp'),
+('Coupang Play', '/images/coupang_play.webp');
 
 INSERT INTO ott_plan (ott_service_id, plan_name, monthly_price, max_members)
 VALUES
@@ -64,14 +64,14 @@ VALUES
 (4, '2026-05', 13500, 'PENDING');
 
 INSERT INTO member_payment (
-    settlement_id, member_id, payment_amount, payment_status, payment_date
+    party_settlement_id, member_id, payment_amount, payment_status, payment_date, penalty_applied
 )
 VALUES
-(1, 1, 4250, 'PAID', '2026-05-10 10:00:00'),
-(1, 2, 4250, 'PAID', '2026-05-10 10:30:00'),
-(1, 3, 4250, 'UNPAID', NULL),
-(2, 2, 4950, 'PAID', '2026-05-05 09:00:00'),
-(2, 3, 4950, 'PAID', '2026-05-05 09:30:00');
+(1, 1, 4250, 'PAID', '2026-05-10 10:00:00', FALSE),
+(1, 2, 4250, 'PAID', '2026-05-10 10:30:00', FALSE),
+(1, 3, 4250, 'UNPAID', NULL, FALSE),
+(2, 2, 4950, 'PAID', '2026-05-05 09:00:00', FALSE),
+(2, 3, 4950, 'PAID', '2026-05-05 09:30:00', FALSE);
 
 INSERT INTO reliability_history (
     member_id, before_score, change_score, after_score, reason
