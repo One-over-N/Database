@@ -6,44 +6,53 @@ CREATE TABLE member (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     nickname VARCHAR(50) NOT NULL,
-    reliability_score INT DEFAULT 50,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    reliability_score INT NOT NULL DEFAULT 50,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE ott (
-    ott_service_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    service_name VARCHAR(50) NOT NULL,
-    image_url VARCHAR(255)
+    ott_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ott_name VARCHAR(100) NOT NULL,
+    image_url VARCHAR(512) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE ott_plan (
     ott_plan_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    ott_service_id BIGINT NOT NULL,
     plan_name VARCHAR(100) NOT NULL,
     monthly_price INT NOT NULL,
     max_members INT NOT NULL,
-    FOREIGN KEY (ott_service_id) REFERENCES ott(ott_service_id)
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ott_id BIGINT NOT NULL,
+    FOREIGN KEY (ott_id) REFERENCES ott(ott_id)
 );
 
 CREATE TABLE party (
     party_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    ott_plan_id BIGINT NOT NULL,
-    member_id BIGINT NOT NULL,
     party_name VARCHAR(100) NOT NULL,
-    ott_account_id VARCHAR(100),
-    ott_account_pw VARCHAR(100),
-    bank_account VARCHAR(100),
-    party_status ENUM('RECRUITING', 'CLOSED') DEFAULT 'RECRUITING',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ott_account_id VARCHAR(100) NOT NULL,
+    ott_account_password VARCHAR(255) NOT NULL,
+    bank VARCHAR(100) NOT NULL,
+    bank_account VARCHAR(100) NOT NULL,
+    party_status ENUM('RECRUITING', 'CLOSED') NOT NULL DEFAULT 'RECRUITING',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    started_at DATETIME NULL,
+    ott_plan_id BIGINT NOT NULL,
+    leader_id BIGINT NOT NULL,
     FOREIGN KEY (ott_plan_id) REFERENCES ott_plan(ott_plan_id),
-    FOREIGN KEY (member_id) REFERENCES member(member_id)
+    FOREIGN KEY (leader_id) REFERENCES member(member_id)
 );
 
 CREATE TABLE party_member (
     party_member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     party_id BIGINT NOT NULL,
     member_id BIGINT NOT NULL,
-    joined_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (party_id) REFERENCES party(party_id),
     FOREIGN KEY (member_id) REFERENCES member(member_id),
     UNIQUE (party_id, member_id)
@@ -51,55 +60,62 @@ CREATE TABLE party_member (
 
 CREATE TABLE join_request (
     join_request_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    party_id BIGINT NOT NULL,
+    request_status ENUM('PENDING', 'APPROVED', 'REJECTED') NOT NULL DEFAULT 'PENDING',
+    processed_at DATETIME NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     member_id BIGINT NOT NULL,
-    request_status ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING',
-    requested_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (party_id) REFERENCES party(party_id),
+    party_id BIGINT NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(member_id),
+    FOREIGN KEY (party_id) REFERENCES party(party_id),
     UNIQUE (party_id, member_id)
 );
 
 CREATE TABLE party_settlement (
-    settlement_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    party_settlement_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    settlement_status ENUM('PENDING', 'COMPLETED') NOT NULL DEFAULT 'PENDING',
+    target_date DATETIME NOT NULL,
+    target_amount INT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     party_id BIGINT NOT NULL,
-    settlement_month VARCHAR(7) NOT NULL,
-    total_amount INT NOT NULL,
-    settlement_status ENUM('PENDING', 'COMPLETED') DEFAULT 'PENDING',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (party_id) REFERENCES party(party_id),
-    UNIQUE (party_id, settlement_month)
+    FOREIGN KEY (party_id) REFERENCES party(party_id)
 );
 
 CREATE TABLE member_payment (
-    payment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    settlement_id BIGINT NOT NULL,
-    member_id BIGINT NOT NULL,
+    member_payment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     payment_amount INT NOT NULL,
-    payment_status ENUM('PAID', 'UNPAID') DEFAULT 'UNPAID',
-    payment_date DATETIME,
-    FOREIGN KEY (settlement_id) REFERENCES party_settlement(settlement_id),
+    paid_at DATETIME NULL,
+    payment_status ENUM('PAID', 'UNPAID') NOT NULL DEFAULT 'UNPAID',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    penalty_applied BOOLEAN NOT NULL DEFAULT FALSE,
+    party_settlement_id BIGINT NOT NULL,
+    member_id BIGINT NOT NULL,
+    FOREIGN KEY (party_settlement_id) REFERENCES party_settlement(party_settlement_id),
     FOREIGN KEY (member_id) REFERENCES member(member_id),
-    UNIQUE (settlement_id, member_id)
+    UNIQUE (party_settlement_id, member_id)
 );
 
 CREATE TABLE reliability_history (
     reliability_history_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    member_id BIGINT NOT NULL,
-    before_score INT NOT NULL,
     change_score INT NOT NULL,
     after_score INT NOT NULL,
-    reason VARCHAR(100) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reason VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    member_id BIGINT NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(member_id)
 );
 
 CREATE TABLE notification (
     notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    member_id BIGINT NOT NULL,
     notification_type ENUM('PAYMENT_REQUEST', 'JOIN_REQUEST', 'JOIN_APPROVED') NOT NULL,
-    message VARCHAR(255) NOT NULL,
-    is_read BOOLEAN DEFAULT FALSE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES member(member_id)
+    content VARCHAR(255) NOT NULL,
+    is_read BOOLEAN NOT NULL DEFAULT FALSE,
+    target_url VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    member_id BIGINT NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE
 );
