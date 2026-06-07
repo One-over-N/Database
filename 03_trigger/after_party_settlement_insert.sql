@@ -22,7 +22,7 @@ BEGIN
             pm.member_id,
             FLOOR(NEW.target_amount / total_members) AS payment_amount, -- 소수점 버림
             'unpaid' AS payment_status,
-            NULL AS payment_date
+            NULL AS paid_at
         FROM party_member pm
         WHERE pm.party_id = NEW.party_id;
     END IF;
