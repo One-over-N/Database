@@ -42,9 +42,9 @@ CREATE TABLE party (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     started_at DATETIME NULL,
     ott_plan_id BIGINT NOT NULL,
-    leader_id BIGINT NOT NULL,
-    FOREIGN KEY (ott_plan_id) REFERENCES ott_plan(ott_plan_id),
-    FOREIGN KEY (leader_id) REFERENCES member(member_id)
+    leader_id BIGINT NULL,
+    FOREIGN KEY (ott_plan_id) REFERENCES ott_plan(ott_plan_id) ON DELETE CASCADE,
+    FOREIGN KEY (leader_id) REFERENCES member(member_id) ON DELETE SET NULL
 );
 
 CREATE TABLE party_member (
@@ -78,8 +78,8 @@ CREATE TABLE party_settlement (
     target_amount INT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    party_id BIGINT NOT NULL,
-    FOREIGN KEY (party_id) REFERENCES party(party_id)
+    party_id BIGINT NULL,
+    FOREIGN KEY (party_id) REFERENCES party(party_id) ON DELETE SET NULL
 );
 
 CREATE TABLE member_payment (
@@ -90,11 +90,10 @@ CREATE TABLE member_payment (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     penalty_applied BOOLEAN NOT NULL DEFAULT FALSE,
-    party_settlement_id BIGINT NOT NULL,
-    member_id BIGINT NOT NULL,
-    FOREIGN KEY (party_settlement_id) REFERENCES party_settlement(party_settlement_id),
-    FOREIGN KEY (member_id) REFERENCES member(member_id),
-    UNIQUE (party_settlement_id, member_id)
+    party_settlement_id BIGINT NULL,
+    member_id BIGINT NULL,
+    FOREIGN KEY (party_settlement_id) REFERENCES party_settlement(party_settlement_id) ON DELETE SET NULL,
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE SET NULL
 );
 
 CREATE TABLE reliability_history (
