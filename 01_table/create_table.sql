@@ -27,7 +27,7 @@ CREATE TABLE ott_plan (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ott_id BIGINT NOT NULL,
-    FOREIGN KEY (ott_id) REFERENCES ott(ott_id)
+    FOREIGN KEY (ott_id) REFERENCES ott(ott_id) ON DELETE CASCADE
 );
 
 CREATE TABLE party (
@@ -53,8 +53,8 @@ CREATE TABLE party_member (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     party_id BIGINT NOT NULL,
     member_id BIGINT NOT NULL,
-    FOREIGN KEY (party_id) REFERENCES party(party_id),
-    FOREIGN KEY (member_id) REFERENCES member(member_id),
+    FOREIGN KEY (party_id) REFERENCES party(party_id) ON DELETE CASCADE,
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE,
     UNIQUE (party_id, member_id)
 );
 
@@ -66,8 +66,8 @@ CREATE TABLE join_request (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     member_id BIGINT NOT NULL,
     party_id BIGINT NOT NULL,
-    FOREIGN KEY (member_id) REFERENCES member(member_id),
-    FOREIGN KEY (party_id) REFERENCES party(party_id),
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE,
+    FOREIGN KEY (party_id) REFERENCES party(party_id) ON DELETE CASCADE,
     UNIQUE (party_id, member_id)
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE reliability_history (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     member_id BIGINT NOT NULL,
-    FOREIGN KEY (member_id) REFERENCES member(member_id)
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE
 );
 
 CREATE TABLE notification (
