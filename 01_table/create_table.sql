@@ -78,9 +78,8 @@ CREATE TABLE party_settlement (
     target_amount INT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    party_id BIGINT NULL,
+    party_id BIGINT NOT NULL,
     FOREIGN KEY (party_id) REFERENCES party(party_id) ON DELETE CASCADE
-    UNIQUE (party_settlement_id, member_id)
 );
 
 CREATE TABLE member_payment (
@@ -91,10 +90,11 @@ CREATE TABLE member_payment (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     penalty_applied BOOLEAN NOT NULL DEFAULT FALSE,
-    party_settlement_id BIGINT NULL,
-    member_id BIGINT NULL,
+    party_settlement_id BIGINT NOT NULL,
+    member_id BIGINT NOT NULL,
     FOREIGN KEY (party_settlement_id) REFERENCES party_settlement(party_settlement_id) ON DELETE CASCADE,
-    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON DELETE CASCADE,
+    UNIQUE (party_settlement_id, member_id)
 );
 
 CREATE TABLE reliability_history (
