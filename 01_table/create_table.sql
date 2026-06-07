@@ -1,6 +1,17 @@
 CREATE DATABASE IF NOT EXISTS railway;
 USE railway;
 
+DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS reliability_history;
+DROP TABLE IF EXISTS member_payment;
+DROP TABLE IF EXISTS party_settlement;
+DROP TABLE IF EXISTS join_request;
+DROP TABLE IF EXISTS party_member;
+DROP TABLE IF EXISTS party;
+DROP TABLE IF EXISTS ott_plan;
+DROP TABLE IF EXISTS ott;
+DROP TABLE IF EXISTS member;
+
 CREATE TABLE member (
     member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
