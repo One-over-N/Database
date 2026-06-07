@@ -44,7 +44,7 @@ CREATE TABLE party (
     ott_plan_id BIGINT NOT NULL,
     leader_id BIGINT NOT NULL,
     FOREIGN KEY (ott_plan_id) REFERENCES ott_plan(ott_plan_id) ON DELETE CASCADE,
-    FOREIGN KEY (leader_id) REFERENCES member(member_id) ON DELETE CASCADE
+    FOREIGN KEY (leader_id) REFERENCES member(member_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE party_member (
