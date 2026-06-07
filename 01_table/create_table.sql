@@ -121,7 +121,7 @@ CREATE TABLE reliability_history (
 
 CREATE TABLE notification (
     notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    notification_type ENUM('PAYMENT_REQUEST', 'JOIN_REQUEST', 'JOIN_APPROVED') NOT NULL,
+    notification_type ENUM('PAYMENT_REQUEST', 'JOIN_REQUEST', 'JOIN_APPROVED', 'JOIN_REJECTED') NOT NULL,
     message VARCHAR(255) NOT NULL,
     is_read BOOLEAN NOT NULL DEFAULT FALSE,
     target_url VARCHAR(255) NOT NULL,
