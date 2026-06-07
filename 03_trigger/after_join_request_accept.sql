@@ -1,4 +1,9 @@
 -- 파티 마감 전환 트리거
+
+-- 동일 이름 트리거 있을 시 제거
+DROP TRIGGER IF EXISTS after_join_request_accept;
+
+
 DELIMITER //
 
 CREATE TRIGGER after_join_request_accept
@@ -32,7 +37,9 @@ BEGIN
         -- party의 party_status를 CLOSED로 변경
         IF current_members+1>=max_members THEN
             UPDATE party
-            SET party_status='CLOSED'
+            SET party_status='CLOSED',
+		            started_at = NOW(),
+                updated_at = NOW() 
             WHERE party_id=NEW.party_id;
         END IF;
 
