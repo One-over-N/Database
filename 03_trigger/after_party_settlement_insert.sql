@@ -16,11 +16,11 @@ BEGIN
     -- 파티원이 1명이라도 존재할 때만 실행
     IF total_members > 0 THEN
         -- member_payment 테이블에 파티원별 1/N 청구 내역 자동 삽입
-        INSERT INTO member_payment (settlement_id, member_id, payment_amount, payment_status, payment_date)
+        INSERT INTO member_payment (party_settlement_id, member_id, payment_amount, payment_status, payment_date)
         SELECT 
-            NEW.settlement_id,
+            NEW.party_settlement_id,
             pm.member_id,
-            FLOOR(NEW.total_amount / total_members) AS payment_amount, -- 소수점 버림
+            FLOOR(NEW.target_amount / total_members) AS payment_amount, -- 소수점 버림
             'unpaid' AS payment_status,
             NULL AS payment_date
         FROM party_member pm
