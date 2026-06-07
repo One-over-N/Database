@@ -1,4 +1,4 @@
-USE ott_party_db;
+USE railway;
 
 -- 1. 전체 회원 조회
 SELECT * FROM member;
