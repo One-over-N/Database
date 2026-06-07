@@ -42,9 +42,9 @@ CREATE TABLE party (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     started_at DATETIME NULL,
     ott_plan_id BIGINT NOT NULL,
-    leader_id BIGINT NULL,
+    leader_id BIGINT NOT NULL,
     FOREIGN KEY (ott_plan_id) REFERENCES ott_plan(ott_plan_id) ON DELETE CASCADE,
-    FOREIGN KEY (leader_id) REFERENCES member(member_id) ON DELETE SET NULL
+    FOREIGN KEY (leader_id) REFERENCES member(member_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE party_member (
