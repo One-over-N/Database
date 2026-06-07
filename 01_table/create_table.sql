@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ott_party_db;
-USE ott_party_db;
+CREATE DATABASE IF NOT EXISTS railway;
+USE railway;
 
 CREATE TABLE member (
     member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
