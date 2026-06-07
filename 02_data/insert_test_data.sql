@@ -1,4 +1,4 @@
-USE ott_party_db;
+USE railway;
 
 INSERT INTO member (email, password, nickname, reliability_score)
 VALUES
