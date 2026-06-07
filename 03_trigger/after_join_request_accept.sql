@@ -28,19 +28,15 @@ BEGIN
         JOIN ott_plan op ON p.ott_plan_id=op.ott_plan_id
         WHERE p.party_id=NEW.party_id;
 
-        -- 이미 정원이 다 찼는지 확인
-        IF current_members>=max_members THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = '파티 정원을 초과하여 승인할 수 없습니다.';
-        END IF;
+		-- 최대 인원 달성시 CLOSED
+        IF current_members >= max_members THEN
 
-        -- party의 party_status를 CLOSED로 변경
-        IF current_members+1>=max_members THEN
             UPDATE party
-            SET party_status='CLOSED',
-		            started_at = NOW(),
-                updated_at = NOW() 
-            WHERE party_id=NEW.party_id;
+            SET party_status = 'CLOSED',
+                started_at = NOW(),
+                updated_at = NOW()
+            WHERE party_id = NEW.party_id
+              AND party_status <> 'CLOSED';
         END IF;
 
     END IF;
