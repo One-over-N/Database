@@ -138,7 +138,7 @@ VALUES
 (10,5,92,'정상 납부');
 
 INSERT INTO notification (
-    member_id, notification_type, content, target_url, is_read
+    member_id, notification_type, message, target_url, is_read
 )
 VALUES
 (1,'PAYMENT_REQUEST','2026년 5월 정산 요청이 도착했습니다.','/payments',FALSE),
