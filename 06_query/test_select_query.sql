@@ -95,7 +95,7 @@ ORDER BY rh.created_at DESC;
 SELECT
     m.nickname,
     n.notification_type,
-    n.content,
+    n.message,
     n.target_url,
     n.is_read,
     n.created_at
