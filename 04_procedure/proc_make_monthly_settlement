@@ -1,0 +1,22 @@
+DROP PROCEDURE IF EXISTS proc_make_monthly_settlement;
+
+DELIMITER //
+
+CREATE PROCEDURE proc_make_monthly_settlement()
+BEGIN
+    -- 어제 날짜가 '시작일로부터 정확히 N개월 뒤'인 파티를 찾아 오늘 정산 생성
+    INSERT INTO party_settlement (party_id, target_amount, settlement_status, target_date, created_at, updated_at)
+    SELECT 
+        p.party_id,
+        op.monthly_price AS target_amount,
+        'PENDING' AS settlement_status,
+        NOW() AS target_date,
+        NOW() AS created_at,
+        NOW() AS updated_at
+    FROM party p
+    JOIN ott_plan op ON p.ott_plan_id = op.ott_plan_id
+    WHERE p.party_status = 'CLOSED' 
+      AND DATE_SUB(DATE(NOW()), INTERVAL 1 DAY) = DATE_ADD(DATE(p.started_at), INTERVAL PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM DATE_SUB(NOW(), INTERVAL 1 DAY)), EXTRACT(YEAR_MONTH FROM p.started_at)) MONTH);
+END //
+
+DELIMITER ;
