@@ -1,0 +1,15 @@
+-- 프로시저 실행 이벤트
+DROP EVENT IF EXISTS make_monthly_party_settlement;
+
+DELIMITER //
+
+CREATE EVENT make_monthly_party_settlement
+ON SCHEDULE EVERY 1 DAY
+STARTS TIMESTAMP(CURRENT_DATE, '00:05:00')
+DO
+BEGIN
+    -- 프로시저 실행
+    CALL proc_make_monthly_settlement();
+END //
+
+DELIMITER ;
