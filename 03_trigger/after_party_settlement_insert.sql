@@ -1,4 +1,7 @@
--- 멤버별 1/N 청구 생성 트리거
+-- party_settlement 생성 시 member_payment 생성 
+
+DROP TRIGGER IF EXISTS after_party_settlement_insert;
+
 DELIMITER //
 
 CREATE TRIGGER after_party_settlement_insert
@@ -15,8 +18,7 @@ BEGIN
     
     -- 파티원이 1명이라도 존재할 때만 실행
     IF total_members > 0 THEN
-        -- member_payment 테이블에 파티원별 1/N 청구 내역 자동 삽입
-        INSERT INTO member_payment (party_settlement_id, member_id, payment_amount, payment_status, payment_date)
+        INSERT INTO member_payment (party_settlement_id, member_id, payment_amount, payment_status, paid_at)
         SELECT 
             NEW.party_settlement_id,
             pm.member_id,
