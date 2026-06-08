@@ -1,0 +1,2 @@
+CREATE INDEX idx_join_request_member_party_created 
+ON join_request (member_id, party_id, created_at DESC);

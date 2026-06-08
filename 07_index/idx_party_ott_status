@@ -1,0 +1,2 @@
+CREATE INDEX idx_party_ott_status 
+ON party (ott_plan_id, party_status);

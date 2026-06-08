@@ -1,0 +1,2 @@
+CREATE INDEX idx_member_payment_integrated 
+ON member_payment (member_id, member_payment_id DESC, payment_status);
