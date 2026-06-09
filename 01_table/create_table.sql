@@ -111,7 +111,6 @@ CREATE TABLE member_payment (
 CREATE TABLE reliability_history (
     reliability_history_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     change_score INT NOT NULL,
-    after_score INT NOT NULL,
     reason VARCHAR(255) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
