@@ -10,7 +10,7 @@ BEGIN
         p.party_id,
         op.monthly_price AS target_amount,
         'PENDING' AS settlement_status,
-        NOW() AS target_date,
+        DATE_ADD(DATE(p.started_at), INTERVAL PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM NOW()), EXTRACT(YEAR_MONTH FROM p.started_at)) + 1 MONTH) AS target_date,
         NOW() AS created_at,
         NOW() AS updated_at
     FROM party p
