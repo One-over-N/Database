@@ -89,7 +89,7 @@
 > [!NOTE]
 > 아래 배지나 링크를 클릭하시면 ERDCloud 공식 사이트에서 정규화된 테이블 구조 및 실시간 컬럼 명세를 상세히 확인하실 수 있습니다.
 
-<a href="https://www.erdcloud.com/d/qpuDCWpzuEu2NLBSz" target="_blank">
+<a href="(https://www.erdcloud.com/d/hbmxmcu3qM9aJjbyt" target="_blank">
   <img src="https://img.shields.io/badge/ERDCloud-실시간%20ERD%20확인하기-0078D4?style=for-the-badge&logo=databricks&logoColor=white"/>
 </a>
 
