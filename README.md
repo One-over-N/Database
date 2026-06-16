@@ -1,20 +1,22 @@
-# 🗄️ 엔분의일 (One Over N) - Database Infrastructure
+# 🎬 엔분의일 (One Over N) - Database Infrastructure
 
 <div align="center">
   <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/>
+  <a href="https://www.erdcloud.com/d/hbmxmcu3qM9aJjbyt" target="_blank">
   <img src="https://img.shields.io/badge/ERDCloud-명세서-0078D4?style=for-the-badge&logo=databricks&logoColor=white"/>
+</a>
 </div>
 
 <br>
 
-> **"관계형 정규화 및 데이터베이스 스케줄링·프로그래밍 기반 데이터 인프라 구축"**
-> 1/N 정산 시스템의 핵심 비즈니스 정산 프로세스, 실시간 가감 연동 신뢰도 변동 이력 및 미납자 제어를 물리 데이터베이스 계층에서 무결성 있게 자동 제어하는 **독립 데이터 자산 저장소**입니다.  
+> **"OTT 구독료 분할 및 파티 매칭을 스마트하게"**
+> 정산 시스템의 핵심 비즈니스 정산 프로세스, 실시간 가감 연동 신뢰도 변동 이력 및 미납자 제어를 물리 데이터베이스 계층에서 무결성 있게 자동 제어하는 **1/N 정산 플랫폼** 데이터베이스 저장소입니다.
 > 본 프로젝트는 **2026-1 이화여자대학교 데이터베이스 수업 프로젝트 11조** 결과물입니다.
 
 ---
 
-## 🗓️ 설계 및 가동 기간
-- **프로젝트 기간**: 2026년 5월 ~ 2026년 6월
+## 🗓️ 개발 기간 (Project Period)
+- **총 개발 기간**: 2026년 5월 ~ 2026년 6월
 
 ---
 
@@ -87,7 +89,7 @@
 ==========================================================================================
 ```
 > [!NOTE]
-> 아래 배지나 링크를 클릭하시면 ERDCloud 공식 사이트에서 정규화된 테이블 구조 및 실시간 컬럼 명세를 상세히 확인하실 수 있습니다.
+> 아래 배지나 링크를 클릭하시면 ERDCloud 공식 사이트에서 테이블 구조 및 실시간 컬럼 명세를 상세히 확인하실 수 있습니다.
 
 <a href="(https://www.erdcloud.com/d/hbmxmcu3qM9aJjbyt" target="_blank">
   <img src="https://img.shields.io/badge/ERDCloud-실시간%20ERD%20확인하기-0078D4?style=for-the-badge&logo=databricks&logoColor=white"/>
@@ -95,7 +97,7 @@
 
 ---
 
-## 🛠️ 데이터베이스 빌드 및 초기화 방법
+## 🛠️ 데이터베이스 빌드 및 초기화
 MySQL 전용 클라이언트 GUI 툴(HeidiSQL, MySQL Workbench 등)을 통해 해당 DB 서버에 root 권한으로 접속한 뒤, 객체 간 참조 무결성 오류 및 컴파일 의존성 에러를 완벽하게 차단하기 위해 반드시 아래에 명시된 서브 디렉토리 일련번호 순서에 맞춰 스크립트를 순차적으로 실행합니다.
 
 ```Bash
